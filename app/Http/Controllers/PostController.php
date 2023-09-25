@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Category;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -16,8 +17,6 @@ class PostController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     * 
-     * 
      */
     public function create()
     {
@@ -27,13 +26,9 @@ class PostController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * 
-     *
      */
-
     public function store(Request $request)
     {
-        // return "Hello";
         $request->validate([
             'image'       => ['required', 'max:2028', 'image'],
             'title'       => ['required', 'max: 255'],
@@ -41,7 +36,20 @@ class PostController extends Controller
             'description' => ['required']
         ]);
 
-        dd('success');
+        // dd('success');
+
+        $fileName = time().'_'.$request->image->getClientOriginalName();
+        $filePath = $request->image->storeAs('public/uploads', $fileName);
+        // return $filePath;
+
+        $post = new Post();
+        $post->title = $request->title;
+        $post->description = $request->description;
+        $post->category_id = $request->category_id;
+        $post->image = $filePath;
+        $post->save();
+
+        return redirect()->route('posts.index');
     }
 
     /**
