@@ -6,7 +6,7 @@
           <div class="card-header">
             <div class="row">
               <div class="col-md-6">
-                All Posts
+                Show Post
               </div>
               <div class="col-md-6 d-flex justify-content-end">
                 <a class="btn btn-sm btn-success mx-1" href="{{ route('posts.create') }}">Create</a>
@@ -17,21 +17,8 @@
 
             <div class="card-body">
                 <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th scope="col" style="width: 5%">#</th>
-                        <th scope="col" style="width: 5%">Image</th>
-                        <th scope="col" style="width: 10%">Title</th>
-                        <th scope="col" style="width: 20%">Description</th>
-                        <th scope="col" style="width: 5%">Category</th>
-                        <th scope="col" style="width: 10%">Publish Date</th>
-                        <th scope="col" style="width: 15%">Actions</th> 
-                      </tr>
-                    </thead>
                     <tbody>
-
-                      @foreach ($posts as $post)
-                        <tr>
+                        {{-- <tr>
                           <th scope="row">{{ $post->id }}</th>
                           <td> 
                               <img src="{{ asset($post->image) }}" alt="" width="80px">
@@ -45,12 +32,32 @@
                           <td> {{ $post->category_id }}</td>
                           <td> {{ date('d-m-Y', strtotime($post->created_at))}}</td>
                           <td>
-                              <a class="btn btn-sm btn-success" href="{{ route('posts.show', $post->id) }}">Show</a>
+                              <a class="btn btn-sm btn-success" href="">Show</a>
                               <a class="btn btn-sm btn-primary" href="{{ route('posts.edit', $post->id) }}">Edit</a>
                               <a class="btn btn-sm btn-danger" href="">Delete</a>
                           </td>
+                        </tr> --}}
+
+                        <tr>
+                          <td>ID</td>
+                          <td>{{ $post->id }}</td>
                         </tr>
-                      @endforeach
+                        <tr>
+                          <td>Image</td>
+                          <td><img width="300px" src="{{ asset($post->image) }}" alt=""></td>
+                        </tr>
+                        <tr>
+                          <td>Title</td>
+                          <td>{{ $post->title }}</td>
+                        </tr>
+                        <tr>
+                          <td>Description</td>
+                          <td>{{ $post->description }}</td>
+                        </tr>
+                        <tr>
+                          <td>Category</td>
+                          <td>{{ date('d-m-Y', strtotime($post->created_at))}}</td>
+                        </tr>
                     </tbody>
                   </table>
             </div>
