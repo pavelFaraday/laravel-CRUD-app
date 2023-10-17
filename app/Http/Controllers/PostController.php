@@ -108,6 +108,7 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+    
     public function destroy(string $id)
     {
         $post = Post::findOrFail($id);
@@ -115,4 +116,12 @@ class PostController extends Controller
 
         return redirect()->route('posts.index');
     }
+
+
+    public function trashed()
+    {
+        $posts = Post::onlyTrashed()->get();
+        return view('trashed', compact('posts'));
+    }
+
 }
