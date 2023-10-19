@@ -13,7 +13,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate(1);
+        $posts = Post::paginate(5);  // How many posts show in each page for pagination
         return view('index', compact('posts'));
     }
 
